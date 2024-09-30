@@ -407,6 +407,10 @@ class report_log_table_log extends table_sql {
         $params['contextinstanceid'] = $this->filterparams->modid;
         $params['contextmodule'] = CONTEXT_MODULE;
 
+        $context = \context_module::instance($this->filterparams->modid);
+        $joins[] = "contextid = :contextid";
+        $params['contextid'] = $context->id;
+
         $sql = implode(' AND ', $joins);
         return array($sql, $params);
     }
